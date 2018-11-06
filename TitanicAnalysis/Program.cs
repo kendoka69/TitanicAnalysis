@@ -118,28 +118,28 @@ namespace TitanicAnalysis
 
         public static List<Passenger> FemaleSurvivor(List<Passenger> passengers, string Sex)
         {
-            List<Passenger> femaleSuvivor = new List<Passenger>();
+            List<Passenger> femaleSurvivor = new List<Passenger>();
             foreach (Passenger passenger in passengers)
             {
                 if (passenger.Sex == "Female" && passenger.Survived == "1")
                 {
-                    femaleSuvivor.Add(passenger);
+                    femaleSurvivor.Add(passenger);
                 }
             }
-            return femaleSuvivor;
+            return femaleSurvivor;
         }
 
         public static List<Passenger> MaleSurvivor(List<Passenger> passengers, string Sex)
         {
-            List<Passenger> maleSuvivor = new List<Passenger>();
+            List<Passenger> maleSurvivor = new List<Passenger>();
             foreach (Passenger passenger in passengers)
             {
                 if (passenger.Sex == "Male" && passenger.Survived == "1")
                 {
-                    maleSuvivor.Add(passenger);
+                    maleSurvivor.Add(passenger);
                 }
             }
-            return maleSuvivor;
+            return maleSurvivor;
         }
     }
 }
