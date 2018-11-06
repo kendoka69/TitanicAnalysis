@@ -10,19 +10,25 @@ namespace TitanicAnalysis
 {
     class Program
     {
-        private static string Female;
+        private static string female;
+        private static string male;
+
+        //private static string Female;
+        //private static string Male;
 
         static void Main(string[] args)
         {
 
-            //List<Passenger> passengers;
+            List<Passenger> passengers = new List<Passenger>();
             string currentDirectory = Directory.GetCurrentDirectory();
             DirectoryInfo directory = new DirectoryInfo(currentDirectory);
             var fileName = Path.Combine(directory.FullName, "TitanicData.csv");
             var fileContents = ReadTitanicData(fileName);
+           
 
-
-
+           
+            
+            
             StringBuilder menu = new StringBuilder();
             menu.Append("----------------------------");
             menu.Append("\nTo sort surviors by gender, press 1 for female, press 2 for male");
@@ -33,18 +39,21 @@ namespace TitanicAnalysis
 
             var input = Console.ReadLine();
 
+            
             while (input.ToUpper() != "Q")
             {
+                
                 switch (input)
                 {
                     case "1":
                         PrintList(fileContents);
                         break;
                     case "2":
-                        SurviorByGender();
+                        FemaleSurvivor(passengers, female);
                         break;
-
-
+                    case "3":
+                        MaleSurvivor(passengers, male);
+                        break;
 
                     default:
                         Console.WriteLine("Please enter 1 or 2 or Q to quit");
@@ -57,10 +66,6 @@ namespace TitanicAnalysis
 
         }
 
-        //private static void SurviorByGender(List<Passenger> fileContents)
-        //{
-        //    Console.WriteLine(,ToSt;
-        //}
 
         public static string ReadFile(string fileName)
         {
@@ -96,6 +101,8 @@ namespace TitanicAnalysis
                     passenger.FirstName = value[3];
                     passenger.Sex = value[4];
 
+
+
                     titanicData.Add(passenger);
                 }
             }
@@ -103,21 +110,36 @@ namespace TitanicAnalysis
         }
         private static void PrintList(List<Passenger> passengers)
         {
-
-            foreach (var person in passengers)
+            foreach (var passenger in passengers)
             {
-
-                Console.WriteLine(person.ToString());
-
+                Console.WriteLine(passenger.ToString());
             }
         }
 
-        private static void SurviorByGender(List<Passenger> passengers, string Female)
+        public static List<Passenger> FemaleSurvivor(List<Passenger> passengers, string Sex)
         {
-            foreach (var item in passengers)
+            List<Passenger> femaleSuvivor = new List<Passenger>();
+            foreach (Passenger passenger in passengers)
             {
-                int index = passengers.IndexOf(item);
+                if (passenger.Sex == "Female" && passenger.Survived == "1")
+                {
+                    femaleSuvivor.Add(passenger);
+                }
             }
+            return femaleSuvivor;
+        }
+
+        public static List<Passenger> MaleSurvivor(List<Passenger> passengers, string Sex)
+        {
+            List<Passenger> maleSuvivor = new List<Passenger>();
+            foreach (Passenger passenger in passengers)
+            {
+                if (passenger.Sex == "Male" && passenger.Survived == "1")
+                {
+                    maleSuvivor.Add(passenger);
+                }
+            }
+            return maleSuvivor;
         }
     }
 }
