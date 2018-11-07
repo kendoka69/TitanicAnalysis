@@ -13,57 +13,47 @@ namespace TitanicAnalysis
         private static string female;
         private static string male;
 
-        //private static string Female;
-        //private static string Male;
-
         static void Main(string[] args)
         {
-
-            List<Passenger> passengers = new List<Passenger>();
+           
             string currentDirectory = Directory.GetCurrentDirectory();
             DirectoryInfo directory = new DirectoryInfo(currentDirectory);
             var fileName = Path.Combine(directory.FullName, "TitanicData.csv");
-            var fileContents = ReadTitanicData(fileName);
-           
+            var passengers = ReadTitanicData(fileName);
 
-           
-            
-            
             StringBuilder menu = new StringBuilder();
             menu.Append("----------------------------");
-            menu.Append("\nTo sort surviors by gender, press 1 for female, press 2 for male");
+            menu.Append("\nTo return a list of passengers, enter 1.");
+            menu.Append("\nTo sort surviors by gender, press 2 for female, press 3 for male");
             menu.Append("\n----------------------------");
             menu.Append("\nEnter Q to quit");
 
             Console.WriteLine(menu.ToString());
 
-            var input = Console.ReadLine();
-
             
-            while (input.ToUpper() != "Q")
+            var fileContents = passengers;
+            var input = Console.ReadLine();
+            do
             {
-                
+             
                 switch (input)
                 {
                     case "1":
                         PrintList(fileContents);
                         break;
                     case "2":
-                        FemaleSurvivor(passengers, female);
+                        fileContents = FemaleSurvivor(passengers, female);
+                        Console.WriteLine("Found " + passengers.ToString() + " female passengers.");
                         break;
                     case "3":
-                        MaleSurvivor(passengers, male);
+                        fileContents = MaleSurvivor(passengers, male);
+                        Console.WriteLine("Found " + fileContents.ToString() + " male passengers.");
                         break;
 
-                    default:
-                        Console.WriteLine("Please enter 1 or 2 or Q to quit");
-                        break;
                 }
-                input = Console.ReadLine();
-            }
-
-            Console.ReadLine();
-
+                
+            } 
+            while (input.ToUpper() != "Q");           
         }
 
 
@@ -88,10 +78,10 @@ namespace TitanicAnalysis
                     string[] value = line.Split(',');
 
                     int parseInt;
-                    if (int.TryParse(value[0], out parseInt))
-                    {
-                        passenger.PassClass = parseInt;
-                    }
+                    //if (int.TryParse(value[0], out parseInt))
+                    //{
+                    //    passenger.PassClass = parseInt;
+                    //}
                     if (int.TryParse(value[5], out parseInt))
                     {
                         passenger.Age = parseInt;
@@ -121,7 +111,7 @@ namespace TitanicAnalysis
             List<Passenger> femaleSurvivor = new List<Passenger>();
             foreach (Passenger passenger in passengers)
             {
-                if (passenger.Sex == "Female" && passenger.Survived == "1")
+                if (passenger.Sex == "female" && passenger.Survived == "1")
                 {
                     femaleSurvivor.Add(passenger);
                 }
@@ -134,7 +124,7 @@ namespace TitanicAnalysis
             List<Passenger> maleSurvivor = new List<Passenger>();
             foreach (Passenger passenger in passengers)
             {
-                if (passenger.Sex == "Male" && passenger.Survived == "1")
+                if (passenger.Sex == "male" && passenger.Survived == "1")
                 {
                     maleSurvivor.Add(passenger);
                 }

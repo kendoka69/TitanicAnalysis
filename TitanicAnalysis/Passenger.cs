@@ -17,7 +17,7 @@ namespace TitanicAnalysis
 
         public override string ToString()
         {
-            return LastName + ", " + FirstName;
+            return "Name: " + LastName + ", " + FirstName + "   Age: " + Age;
         }
         
         
