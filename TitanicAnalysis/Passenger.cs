@@ -8,7 +8,7 @@ namespace TitanicAnalysis
 {
     public class Passenger
     {
-        public int PassClass { get; set; }
+        
         public string Survived { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }

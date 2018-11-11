@@ -15,7 +15,7 @@ namespace TitanicAnalysis
 
         static void Main(string[] args)
         {
-           
+            
             string currentDirectory = Directory.GetCurrentDirectory();
             DirectoryInfo directory = new DirectoryInfo(currentDirectory);
             var fileName = Path.Combine(directory.FullName, "TitanicData.csv");
@@ -30,32 +30,45 @@ namespace TitanicAnalysis
 
             Console.WriteLine(menu.ToString());
 
-            
+
             var fileContents = passengers;
             var input = Console.ReadLine();
-            do
+            while (input.ToUpper() != "Q")
             {
-             
+
                 switch (input)
                 {
                     case "1":
                         PrintList(fileContents);
+                        Console.WriteLine(fileContents.Count + " total number of passengers");
+                        Console.ReadLine();
                         break;
+
                     case "2":
                         fileContents = FemaleSurvivor(passengers, female);
-                        Console.WriteLine("Found " + passengers.ToString() + " female passengers.");
+                        Console.WriteLine("Found " + fileContents.Count + " female passengers.");
+                        Console.WriteLine("If you would like to see the names and age of female survivors, enter 1");
+                        Console.ReadLine();
+                        PrintList(fileContents);
                         break;
+
                     case "3":
                         fileContents = MaleSurvivor(passengers, male);
-                        Console.WriteLine("Found " + fileContents.ToString() + " male passengers.");
+                        Console.WriteLine("Found " + fileContents.Count + " male passengers.");
+                        Console.WriteLine("If you would like to see the names and age of male survivors, enter 1");
+                        Console.ReadLine();
+                        PrintList(fileContents);
                         break;
 
                 }
-                
-            } 
-            while (input.ToUpper() != "Q");           
+
+            }
+            Console.ReadLine();
         }
 
+    
+
+        
 
         public static string ReadFile(string fileName)
         {
