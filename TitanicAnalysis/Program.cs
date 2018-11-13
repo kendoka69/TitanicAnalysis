@@ -15,7 +15,7 @@ namespace TitanicAnalysis
 
         static void Main(string[] args)
         {
-            
+
             string currentDirectory = Directory.GetCurrentDirectory();
             DirectoryInfo directory = new DirectoryInfo(currentDirectory);
             var fileName = Path.Combine(directory.FullName, "TitanicData.csv");
@@ -41,6 +41,7 @@ namespace TitanicAnalysis
                     case "1":
                         PrintList(fileContents);
                         Console.WriteLine(fileContents.Count + " total number of passengers");
+                        Console.WriteLine(menu.ToString());
                         Console.ReadLine();
                         break;
 
@@ -49,7 +50,11 @@ namespace TitanicAnalysis
                         Console.WriteLine("Found " + fileContents.Count + " female passengers.");
                         Console.WriteLine("If you would like to see the names and age of female survivors, enter 1");
                         Console.ReadLine();
+                        WriteTitanicData(fileContents);
+
                         PrintList(fileContents);
+
+
                         break;
 
                     case "3":
@@ -57,19 +62,17 @@ namespace TitanicAnalysis
                         Console.WriteLine("Found " + fileContents.Count + " male passengers.");
                         Console.WriteLine("If you would like to see the names and age of male survivors, enter 1");
                         Console.ReadLine();
+                        WriteTitanicData(fileContents);
                         PrintList(fileContents);
                         break;
 
+                   
                 }
-
             }
             Console.ReadLine();
         }
 
-    
-
-        
-
+        //is this even necessary with ReadTitanicData method below?
         public static string ReadFile(string fileName)
         {
             using (var reader = new StreamReader(fileName))
@@ -111,6 +114,19 @@ namespace TitanicAnalysis
             }
             return titanicData;
         }
+
+        private static void WriteTitanicData(List<Passenger> fileContents)
+        {
+            using (var writer = new StreamWriter("UpdatedTitanicData.csv"))
+            {
+                writer.WriteLine("LastName,FirstName,Age");
+                foreach (var item in fileContents)
+                {
+                    writer.WriteLine(item.LastName + "," + item.FirstName + "," + item.Age);
+                }
+            }
+        }
+
         private static void PrintList(List<Passenger> passengers)
         {
             foreach (var passenger in passengers)
