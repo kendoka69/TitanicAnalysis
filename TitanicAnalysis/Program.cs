@@ -118,7 +118,7 @@ namespace TitanicAnalysis
 
         private static void WriteTitanicData(List<Passenger> fileContents)
         {
-            using (var writer = new StreamWriter("UpdatedTitanicData.csv"))
+            using (var writer = File.AppendText("UpdatedTitanicData.csv"))
             {
                 writer.WriteLine("LastName,FirstName,Age");
                 foreach (var item in fileContents)
