@@ -33,7 +33,7 @@ namespace TitanicAnalysis
 
             var fileContents = passengers;
             var input = Console.ReadLine();
-            while (input.ToUpper() != "Q")
+            while (input.ToLower() != "q")
             {
 
                 switch (input)
@@ -42,7 +42,7 @@ namespace TitanicAnalysis
                         PrintList(fileContents);
                         Console.WriteLine(fileContents.Count + " total number of passengers");
                         Console.WriteLine(menu.ToString());
-                        Console.ReadLine();
+                        
                         break;
 
                     case "2":
@@ -68,18 +68,19 @@ namespace TitanicAnalysis
 
                    
                 }
+                input = Console.ReadLine();
             }
-            Console.ReadLine();
+            
         }
 
         //is this even necessary with ReadTitanicData method below?
-        public static string ReadFile(string fileName)
-        {
-            using (var reader = new StreamReader(fileName))
-            {
-                return reader.ReadToEnd();
-            }
-        }
+        //public static string ReadFile(string fileName)
+        //{
+        //    using (var reader = new StreamReader(fileName))
+        //    {
+        //        return reader.ReadToEnd();
+        //    }
+        //}
 
         public static List<Passenger> ReadTitanicData(string fileName)
         {
