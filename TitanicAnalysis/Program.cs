@@ -15,14 +15,16 @@ namespace TitanicAnalysis
 
         static void Main(string[] args)
         {
-
+            //get current directory
             string currentDirectory = Directory.GetCurrentDirectory();
             DirectoryInfo directory = new DirectoryInfo(currentDirectory);
             var fileName = Path.Combine(directory.FullName, "TitanicData.csv");
             var passengers = ReadTitanicData(fileName);
 
+            //menu
             StringBuilder menu = new StringBuilder();
-            menu.Append("----------------------------");
+            menu.Append("Welcome to Titanic Analysis");
+            menu.Append("\n----------------------------");
             menu.Append("\nTo return a list of passengers, enter 1.");
             menu.Append("\nTo sort surviors by gender, press 2 for female, press 3 for male");
             menu.Append("\n----------------------------");
@@ -42,7 +44,7 @@ namespace TitanicAnalysis
                         PrintList(fileContents);
                         Console.WriteLine(fileContents.Count + " total number of passengers");
                         Console.WriteLine(menu.ToString());
-                        
+
                         break;
 
                     case "2":
@@ -51,10 +53,9 @@ namespace TitanicAnalysis
                         Console.WriteLine("If you would like to see the names and age of female survivors, enter 1");
                         Console.ReadLine();
                         WriteTitanicData(fileContents);
-
                         PrintList(fileContents);
-
-
+                        Console.WriteLine("Survivors added to UpdatedTitanicData.csv");
+                        Console.WriteLine(menu.ToString());
                         break;
 
                     case "3":
@@ -64,24 +65,16 @@ namespace TitanicAnalysis
                         Console.ReadLine();
                         WriteTitanicData(fileContents);
                         PrintList(fileContents);
+                        Console.WriteLine("Survivors added to UpdatedTitanicData.csv");
+                        Console.WriteLine(menu.ToString());
                         break;
-
-                   
                 }
                 input = Console.ReadLine();
             }
-            
+            //end menu
         }
 
-        //is this even necessary with ReadTitanicData method below?
-        //public static string ReadFile(string fileName)
-        //{
-        //    using (var reader = new StreamReader(fileName))
-        //    {
-        //        return reader.ReadToEnd();
-        //    }
-        //}
-
+        //read data from csv file via StreamReader
         public static List<Passenger> ReadTitanicData(string fileName)
         {
             var titanicData = new List<Passenger>();
@@ -116,6 +109,7 @@ namespace TitanicAnalysis
             return titanicData;
         }
 
+        //write to file
         private static void WriteTitanicData(List<Passenger> fileContents)
         {
             using (var writer = File.AppendText("UpdatedTitanicData.csv"))
@@ -136,6 +130,7 @@ namespace TitanicAnalysis
             }
         }
 
+        //separate female survivors
         public static List<Passenger> FemaleSurvivor(List<Passenger> passengers, string Sex)
         {
             List<Passenger> femaleSurvivor = new List<Passenger>();
@@ -149,6 +144,7 @@ namespace TitanicAnalysis
             return femaleSurvivor;
         }
 
+        //separate male survivors
         public static List<Passenger> MaleSurvivor(List<Passenger> passengers, string Sex)
         {
             List<Passenger> maleSurvivor = new List<Passenger>();
