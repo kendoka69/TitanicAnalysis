@@ -15,10 +15,10 @@ namespace TitanicAnalysis
         public string Sex { get; set; }
         public int Age { get; set; }
 
-        public string GetSurvivors()
+        /*public string GetSurvivors()
         {
             return Survived;
-        }
+        }*/
 
         public override string ToString()
         {
